@@ -18,9 +18,9 @@
 library(dplyr)
 
 # Solar Panels
-setwd("~/Groningen/Revitalising Neighbourhoods/RevitalisingNeighbourhoods/Solar Panels/")
+setwd("~/Groningen/Project 1/NeighbourhoodNorms/Solar Panels/")
 
-solardata <- processing_location_data("point.shp")
+solardata <- processinglocationdat("point.shp")
 
 write.csv(solardata, "SolarNetworkWeights.csv")
 
@@ -34,7 +34,7 @@ write.csv(nodes, "Solarnodes.csv")
 # ---------------------------------------------------------------------------- #
 
 # Greening
-setwd("~/Groningen/Revitalising Neighbourhoods/RevitalisingNeighbourhoods/Greening/")
+setwd("~/Groningen/Project 1/NeighbourhoodNorms/Greening/")
 
 greeningdata <- processing_location_data("point.shp")
 
@@ -97,36 +97,6 @@ write.csv(edges, "Caredges.csv")
 write.csv(nodes, "Carnodes.csv")
 
 # ---------------------------------------------------------------------------- #
-
-# Resource Conservation
-setwd("~/Groningen/Revitalising Neighbourhoods/RevitalisingNeighbourhoods/Resource Conservation/")
-
-resourcedata <- processing_location_data("point.shp")
-
-weighted_contacts <- resourcedata %>% filter(!grepl("huis", buttonname)) %>% 
-  
-  group_by(respondent) %>% mutate(weighted_contacts = sum(weight)) %>% 
-  
-  filter(row_number() == 1) %>% dplyr::select(-c(coords.x1, coords.x2, weight))
-
-sum_contacts <- resourcedata %>% filter(!grepl("huis", buttonname)) %>% 
-  
-  group_by(respondent) %>% transmute(sum_contacts = n())
-
-resourcedata2 <- left_join(weighted_contacts, sum_contacts) %>% 
-  
-  filter(row_number() == 1)
-
-write.csv(resourcedata2, "ResourceNetworkWeights.csv")
-
-nodesedges <- location2network(resourcedata)
-edges <- nodesedges[[1]]
-nodes <- nodesedges[[2]]
-
-all(c(edges[,1], edges[,2]) %in% nodes[,1]) 
-
-write.csv(edges, "Resourceedges.csv")
-write.csv(nodes, "Resourcenodes.csv")
 
 ## Analysis ##
 
