@@ -22,11 +22,14 @@ setwd("~/Groningen/Project 1/NeighbourhoodNorms/Solar Panels/")
 
 solardata <- processinglocationdat("point.shp")
 
-write.csv(solardata, "SolarNetworkWeights.csv")
+write.csv(solardata, "SolarNetworkData.csv")
 
 nodesedges <- location2network(solardata)
 edges <- nodesedges[[1]]
 nodes <- nodesedges[[2]]
+
+all(edges[,1] %in% nodes[,1]) 
+all(edges[,2] %in% nodes[,1])
 
 write.csv(edges, "Solaredges.csv")
 write.csv(nodes, "Solarnodes.csv")
@@ -36,29 +39,16 @@ write.csv(nodes, "Solarnodes.csv")
 # Greening
 setwd("~/Groningen/Project 1/NeighbourhoodNorms/Greening/")
 
-greeningdata <- processing_location_data("point.shp")
+greeningdata <- processinglocationdat("point.shp")
 
-weighted_contacts <- greeningdata %>% filter(!grepl("huis", buttonname)) %>% 
-  
-  group_by(respondent) %>% mutate(weighted_contacts = sum(weight)) %>% 
-  
-  filter(row_number() == 1) %>% dplyr::select(-c(coords.x1, coords.x2, weight))
-
-sum_contacts <- greeningdata %>% filter(!grepl("huis", buttonname)) %>% 
-  
-  group_by(respondent) %>% transmute(sum_contacts = n())
-
-greeningdata2 <- left_join(weighted_contacts, sum_contacts) %>% 
-  
-  filter(row_number() == 1)
-
-write.csv(greeningdata2, "GreeningNetworkWeights.csv")
+write.csv(greeningdata, "GreeningNetworkData.csv")
 
 nodesedges <- location2network(greeningdata)
 edges <- nodesedges[[1]]
 nodes <- nodesedges[[2]]
 
-all(c(edges[,1], edges[,2]) %in% nodes[,1]) 
+all(edges[,1] %in% nodes[,1]) 
+all(edges[,2] %in% nodes[,1]) 
 
 write.csv(edges, "Greeningedges.csv")
 write.csv(nodes, "Greeningnodes.csv")
@@ -66,32 +56,18 @@ write.csv(nodes, "Greeningnodes.csv")
 # ---------------------------------------------------------------------------- #
 
 # Car Use
-setwd("~/Groningen/Revitalising Neighbourhoods/RevitalisingNeighbourhoods/Car Use/")
+setwd("~/Groningen/Project 1/NeighbourhoodNorms/Car Use/")
 
-cardata <- processing_location_data("point.shp")
+cardata <- processinglocationdat("point.shp")
 
-weighted_contacts <- cardata %>% filter(!grepl("huis", buttonname)) %>% 
-  
-  group_by(respondent) %>% mutate(weighted_contacts = sum(weight)) %>% 
-  
-  filter(row_number() == 1) %>% dplyr::select(-c(coords.x1, coords.x2, weight))
-
-sum_contacts <- cardata %>% filter(!grepl("huis", buttonname)) %>% 
-  
-  group_by(respondent) %>% transmute(sum_contacts = n())
-
-cardata2 <- left_join(weighted_contacts, sum_contacts) %>% 
-  
-  filter(row_number() == 1)
-
-write.csv(cardata2, "CarNetworkWeights.csv")
-
+write.csv(cardata, "CarNetworkData.csv")
 
 nodesedges <- location2network(cardata)
 edges <- nodesedges[[1]]
 nodes <- nodesedges[[2]]
 
-all(c(edges[,1], edges[,2]) %in% nodes[,1]) 
+all(edges[,1] %in% nodes[,1]) 
+all(edges[,2] %in% nodes[,1])
 
 write.csv(edges, "Caredges.csv")
 write.csv(nodes, "Carnodes.csv")
