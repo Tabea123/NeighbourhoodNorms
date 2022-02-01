@@ -14,7 +14,7 @@
 #                                                               
 #-------------------------------------------------------------------------------
 
-# setwd("~/Groningen/Project 1/Data/Greening/")
+# setwd("~/Groningen/Project 1/NeighbourhoodNorms/Greening/")
 
 rm(list = ls())
 
@@ -370,25 +370,25 @@ dev.off()
 round(mean(data8$PNB),3)
 round(sd(data8$PNB),3)
 PNB.items <- data8 %>% select(PNB1:PNB4) 
-round(alpha(PNB.items)$total$std.alpha,3) # 0.87
+round(psych::alpha(PNB.items)$total$std.alpha,3) # 0.87
 
 # NE
 round(mean(data8$NE),3)
 round(sd(data8$NE),3)
 NE.items <- data8 %>% select(NE1:NE5) 
-round(alpha(NE.items)$total$std.alpha,3) # 0.72
+round(psych::alpha(NE.items)$total$std.alpha,3) # 0.72
 
 # EE
 round(mean(data8$EE),3)
 round(sd(data8$EE),3)
 EE.items <- data8 %>% select(EE1:EE4) 
-round(alpha(EE.items)$total$std.alpha,3) # 0.63
+round(psych::alpha(EE.items)$total$std.alpha,3) # 0.63
 
 # B
 round(mean(data8$B),3)
 round(sd(data8$B),3)
 B.items <- data8 %>% select(B1:B7) 
-round(alpha(B.items)$total$std.alpha,3) # 0.7
+round(psych::alpha(B.items)$total$std.alpha,3) # 0.7
 
 
 
