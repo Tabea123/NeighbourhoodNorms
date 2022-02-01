@@ -15,7 +15,7 @@
 #-------------------------------------------------------------------------------
 
 rm(list = ls())
-# setwd("~/Groningen/Project 1/Data/Solar Panels/")
+# setwd("~/Groningen/Project 1/NeighbourhoodNorms/Solar Panels/")
 
 # LOAD PACKAGES #
 library(dplyr)
@@ -371,25 +371,25 @@ dev.off()
 round(mean(data8$PNB),3)
 round(sd(data8$PNB),3)
 PNB.items <- data8 %>% select(PNB1:PNB3) 
-round(alpha(PNB.items)$total$std.alpha,3)
+round(psych::alpha(PNB.items)$total$std.alpha,3)
 
 # NE
 round(mean(data8$NE),3)
 round(sd(data8$NE),3)
 NE.items <- data8 %>% select(NE1:NE5) 
-round(alpha(NE.items)$total$std.alpha,3) 
+round(psych::alpha(NE.items)$total$std.alpha,3) 
 
 # EE
 round(mean(data8$EE),3)
 round(sd(data8$EE),3)
 EE.items <- data8 %>% select(EE1:EE4) 
-round(alpha(EE.items)$total$std.alpha,3) 
+round(psych::alpha(EE.items)$total$std.alpha,3) 
 
 # B
 round(mean(data8$B),3)
 round(sd(data8$B),3)
 B.items <- data8 %>% select(B1:B4) 
-round(alpha(B.items)$total$std.alpha,3) 
+round(psych::alpha(B.items)$total$std.alpha,3) 
 
 
 
